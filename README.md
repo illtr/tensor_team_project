@@ -14,6 +14,13 @@
 
 ## 1. 필요 환경
 
+### 운영체제
+- **Linux** 또는 **Windows + WSL2 (권장)** 필수
+- 순수 Windows 환경에서는 아래 두 가지 이유로 설치가 불가합니다:
+  - NVIDIA DALI가 Linux 전용 패키지 (Windows 빌드 미제공)
+  - 커스텀 CUDA 확장 빌드 스크립트(`sh build.sh`)가 bash 환경 필요
+- WSL2 설치: `wsl --install` (PowerShell 관리자 모드에서 실행 후 재부팅)
+
 ### 하드웨어
 - NVIDIA GPU (CUDA 지원 필수)
 - GPU 메모리: 최소 8GB 권장 (batch_size=32 기준)
@@ -78,12 +85,16 @@ pip install -r requirements.txt
 
 ### 단계 5: NVIDIA DALI 설치 (고속 데이터 로더)
 
+> **Windows 사용자**: 이 단계부터는 WSL2 터미널 안에서 실행해야 합니다. DALI는 Linux 전용입니다.
+
 ```bash
 pip install --extra-index-url https://developer.download.nvidia.com/compute/redist \
     --upgrade nvidia-dali-cuda110
 ```
 
 ### 단계 6: 커스텀 CUDA 확장 빌드
+
+> **WSL2 필수**: `sh build.sh`는 bash 환경에서만 실행됩니다.
 
 ```bash
 cd my_interp
